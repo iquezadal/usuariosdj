@@ -1,0 +1,41 @@
+Proyecto usuarios
+
+Configuramos todo el Proyecto 
+
+**********************************************************************
+
+Archivo secret
+
+Para esconder información sensible en el proyecto. 
+
+- secret.json 
+
+**debe ser creado a la altura del manage.py 
+
+- Agregamos al json los datos sensibles.
+
+Configuración:
+
+1. Importo lo necesario:
+
+from django.core.exceptions import ImproperlyConfigured
+import json
+
+2. Ingreso la funcion
+
+with open("secret.json") as f:
+    secret = json.loads(f.read())
+
+def get_secret(secret_name, secrets=secret):
+    try:
+        return secrets[secret_name]
+    except:
+        msg = "la variable no existe" % secret_name
+        raise ImproperlyConfigured(msg)
+
+3. configuro la variable requerida.
+
+ej: SECRET_KEY = get_secret('SECRET_KEY')
+
+************************************************************************
+
